@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="teleop_pkg" type="autoteleop.py" name="cmd_auto_pub" output="screen"/>
-</launch>
