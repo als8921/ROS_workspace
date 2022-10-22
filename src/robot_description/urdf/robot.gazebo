@@ -56,24 +56,24 @@
     <gazebo reference="link_chassis">
 		<material>Gazebo/Blue</material>
 	</gazebo>
-	<gazebo reference="link_caster_wheel">
+	<gazebo reference="link_spherical_wheel">
 		<material>Gazebo/Grey</material>
         <mu1>0.0</mu1>
         <mu2>0.0</mu2>
 	</gazebo>
 	<gazebo reference="link_left_wheel">
 		<material>Gazebo/Black</material>
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
 	</gazebo>
 	<gazebo reference="link_right_wheel">
 		<material>Gazebo/Black</material>
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
 	</gazebo>
     
     
-    <gazebo reference="joint_chassis_caster_wheel">
+    <gazebo reference="joint_spherical_wheel">
         <preserveFixedJoint>true</preserveFixedJoint>
     </gazebo>
 
