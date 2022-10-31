@@ -5,7 +5,7 @@
     <xacro:property name="PI" value="3.1415926535"/>
 
     <material name="blue">
-        <color rgba="0 0 0.8 1"/>
+        <color rgba="0 0 0.8 0.8"/>
     </material>
 
     <material name="black">
@@ -28,15 +28,13 @@
             <geometry>
                 <mesh filename="package://robot_description/meshes/chassis.stl" />
             </geometry>
-            <material name="grey">
-                <color rgba="0.5 0.5 0.5 0.5"/>
-            </material>
         </collision>
 
         <visual>
             <geometry>
                 <mesh filename="package://robot_description/meshes/chassis.stl" />
             </geometry>
+            <material name="blue"/>
         </visual>   
     </link>
 
@@ -78,6 +76,7 @@
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
+            <material name="black"/>
         </visual>
 
         <visual>
@@ -124,14 +123,15 @@
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
+            <material name="black"/>
         </visual>
 
         <visual>
             <origin rpy="0 0 0" xyz="0 -0.18 0" />
             <geometry>
                 <box size="0.1 0.1 0.7" />
-                <material name="grey"/>
             </geometry>
+            <material name="grey"/>
         </visual>
         
 
@@ -179,6 +179,7 @@
             <geometry>
                 <sphere radius="0.125"/>
             </geometry>
+            <material name="grey"/>
         </visual>
 
         <visual>
@@ -186,7 +187,7 @@
             <geometry>
                 <sphere radius="0.15"/>
             </geometry>
-                <material name="grey"/>
+                <material name="black"/>
         </visual>
 
     </link>
@@ -219,6 +220,7 @@
             <geometry>
                 <cylinder radius="0.15" length="0.20"/>
             </geometry>
+            <material name="black"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -259,4 +261,16 @@
             </geometry>
         </collision>
     </link>
+
+    
+    <transmission name="tran_tail">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_tail">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_joint_tail">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
 </robot>
