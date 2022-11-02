@@ -15,6 +15,13 @@ class MyModelPlugin : public ModelPlugin {
         // simulation iteration.
         this->updateConnection = event::Events::ConnectWorldUpdateBegin(
             std::bind(&MyModelPlugin::OnUpdate, this));
+
+        if (_sdf->HasElement("iter")) {
+            this->iter = _sdf->Get<int>("iter");
+        }
+        if (_sdf->HasElement("linear_vel")) {
+            this->linear_vel = _sdf->Get<float>("linear_vel");
+        }
     }
 
     // Called by the world update start event
@@ -22,11 +29,11 @@ class MyModelPlugin : public ModelPlugin {
     void OnUpdate() {
         // Apply a small linear velocity to the model.
 
-        if (this->counter < 10000) {
-        this->model->SetLinearVel(ignition::math::Vector3d(0, 0, 0.4));
-        //   this->model->SetLinearAccel(ignition::math::Vector3d(0, 0, 0));
-        }
-
+        if (this->counter < iter) this->model->SetLinearVel(ignition::math::Vector3d(linear_vel, 0, 0));
+        else if (this->counter < iter*2) this->model->SetLinearVel(ignition::math::Vector3d(0, linear_vel, 0));
+        else if (this->counter < iter*3) this->model->SetLinearVel(ignition::math::Vector3d(-linear_vel, 0, 0));
+        else if (this->counter < iter*4) this->model->SetLinearVel(ignition::math::Vector3d(0, -linear_vel, 0));
+        else this->counter = 0;
         this->counter++;
     }
 
@@ -34,8 +41,9 @@ class MyModelPlugin : public ModelPlugin {
     private:
     physics::ModelPtr model;
 
-    private:
     int counter;
+    int iter;
+    float linear_vel;
 
     // Pointer to the update event connection
     private:

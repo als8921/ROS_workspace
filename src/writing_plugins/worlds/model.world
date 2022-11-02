@@ -31,7 +31,10 @@
         </visual>
       </link>
 
-      <plugin name="my_model_plugin" filename="libmy_model_plugin.so"/>
+      <plugin name="my_model_plugin" filename="libmy_model_plugin.so">
+        <iter>5000</iter>
+        <linear_vel>1</linear_vel>
+      </plugin>
     </model>        
   </world>
 </sdf>
