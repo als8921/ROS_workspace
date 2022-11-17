@@ -11,7 +11,7 @@
     respawn="false"
       output="screen"
     ns="/robot"
-    args="joint_state_controller joint1_position_controller"
+    args="joint_state_controller joint1_position_controller left_wheel_velocity_controller right_wheel_velocity_controller"
     />
 
     <!-- convert joint states to TF transforms for rviz, etc -->
@@ -22,5 +22,6 @@
 
     <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
     <node name="rqt_publisher" pkg="rqt_publisher" type="rqt_publisher" />
+    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" />
 
 </launch>

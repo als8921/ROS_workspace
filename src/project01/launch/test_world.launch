@@ -1,6 +1,6 @@
 <launch>
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find gazebo_world)/worlds/dem.world" />
+    <arg name="world_name" value="$(find project01)/worlds/map.world" />
     <arg name="paused" value="false" />
     <arg name="use_sim_time" value="true" />
     <arg name="gui" value="true" />
