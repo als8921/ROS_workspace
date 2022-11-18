@@ -47,7 +47,6 @@ class ObstaclePlugin : public ModelPlugin {
         default:
             break;
         }
-
         if (counter < iter) this->model->SetLinearVel(ignition::math::Vector3d(vel_x, vel_y, 0));
         else if (counter < iter*2) this->model->SetLinearVel(ignition::math::Vector3d(-vel_x, -vel_y, 0));
         else counter = 0;

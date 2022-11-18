@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robot_description)/urdf/robot.xacro'"/>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find project01)/urdf/robot.xacro'"/>
 
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
