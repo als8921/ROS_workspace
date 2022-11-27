@@ -70,17 +70,25 @@
 	</gazebo>
 	<gazebo reference="link_left_wheel">
 		<material>Gazebo/Black</material>
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
+        <mu1>1</mu1>
+        <mu2>1</mu2>
 	</gazebo>
 	<gazebo reference="link_right_wheel">
 		<material>Gazebo/Black</material>
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
+        <mu1>1</mu1>
+        <mu2>1</mu2>
 	</gazebo>
     
     
     <gazebo reference="joint_spherical_wheel">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+
+    <gazebo reference="joint_chassis_left_wheel">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    <gazebo reference="joint_chassis_right_wheel">
         <preserveFixedJoint>true</preserveFixedJoint>
     </gazebo>
 
