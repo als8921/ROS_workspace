@@ -57,10 +57,9 @@ def go_to(xg, yg, thetag_degrees):
     thetag = math.radians(thetag_degrees)
     while rho>0.01:
         rho = math.hypot(xg - odometry.odom_pose['x'], yg - odometry.odom_pose['y'])
-        # thetag = odometry.odom_pose['theta']
-        alpha = -odometry.odom_pose['theta'] + math.atan((yg - odometry.odom_pose['y'])/(xg - odometry.odom_pose['x']))
-        beta = -thetag - alpha
-        # print(math.degrees(thetag), math.degrees(alpha), math.degrees(beta), odometry.odom_pose['x'], odometry.odom_pose['y'])
+        theta = odometry.odom_pose['theta']
+        alpha = normalize(-theta + math.atan((yg - odometry.odom_pose['y'])/(xg - odometry.odom_pose['x'])))
+        beta = normalize(-theta - alpha)
         v = k_rho * rho
         w = k_alpha*alpha + k_beta * beta
         velocity.move(v, w)
@@ -68,7 +67,7 @@ def go_to(xg, yg, thetag_degrees):
         
 k_rho = 0.3
 k_alpha = 0.8
-k_beta = -0.15
+k_beta = -0.4
 
 
 velocity = VelocityController('/cmd_vel')
