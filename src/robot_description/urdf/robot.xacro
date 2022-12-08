@@ -39,23 +39,138 @@
     </link>
 
     <!-- Joint - chassis / Wheel -->
+
+    <joint name="joint_left_steer" type="continuous">
+        <origin rpy="0 0 0" xyz="0.6 0.83 0" />
+        <child link="link_left_steer" />
+        <parent link="link_chassis" />
+        <axis rpy="0 0 0" xyz="0 0 1" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+    <joint name="joint_right_steer" type="continuous">
+        <origin rpy="0 0 0" xyz="0.6 -0.83 0" />
+        <child link="link_right_steer" />
+        <parent link="link_chassis" />
+        <axis rpy="0 0 0" xyz="0 0 1" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+    <joint name="joint_chassis_front_left_wheel" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <child link="link_front_left_wheel" />
+        <parent link="link_left_steer" />
+        <axis rpy="0 0 0" xyz="0 1 0" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+    <joint name="joint_chassis_front_right_wheel" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <child link="link_front_right_wheel" />
+        <parent link="link_right_steer" />
+        <axis rpy="0 0 0" xyz="0 1 0" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+
     <joint name="joint_chassis_left_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.5 0.65 0" />
+        <origin rpy="0 0 0" xyz="-0.6 0.65 0" />
         <child link="link_left_wheel" />
         <parent link="link_chassis" />
         <axis rpy="0 0 0" xyz="0 1 0" />
         <limit effort="10000" velocity="1000" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
-
     <joint name="joint_chassis_right_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="-0.5 -0.65 0" />
+        <origin rpy="0 0 0" xyz="-0.6 -0.65 0" />
         <child link="link_right_wheel" />
         <parent link="link_chassis" />
         <axis rpy="0 0 0" xyz="0 1 0" />
         <limit effort="10000" velocity="1000" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
+
+    <link name="link_left_steer">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+        </inertial>
+    </link>
+    <link name="link_right_steer">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+        </inertial>
+    </link>
+
+    <link name="link_front_left_wheel">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
+        </inertial>
+
+            <!-- Wheel -->
+        <collision>
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
+            <geometry>
+                <mesh filename="package://robot_description/meshes/wheel.stl" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
+            <geometry>
+                <mesh filename="package://robot_description/meshes/wheel.stl" />
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.1 0.1 0.7" />
+            </geometry>
+            <material name="grey"/>
+        </visual>
+    </link>
+    <link name="link_front_right_wheel">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
+        </inertial>
+
+            <!-- Wheel -->
+        <collision>
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
+            <geometry>
+                <mesh filename="package://robot_description/meshes/wheel.stl" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
+            <geometry>
+                <mesh filename="package://robot_description/meshes/wheel.stl" />
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.1 0.1 0.7" />
+            </geometry>
+            <material name="grey"/>
+        </visual>
+    </link>
+
+
     <!-- Link - left wheel -->
     <link name="link_left_wheel">
         <inertial>
@@ -102,8 +217,6 @@
             </geometry>
         </visual>
     </link>
-
-
     <link name="link_right_wheel">
         <inertial>
             <mass value="1" />
@@ -150,49 +263,6 @@
         </visual>
     </link>
 
-    <!-- Spherical Wheel -->
-    <joint name="joint_spherical_wheel" type="fixed">
-        <origin rpy="0 0 0" xyz="0.7 0 -0.15" />
-        <child link="link_spherical_wheel" />
-        <parent link="link_chassis" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
-        <limit effort="10000" velocity="1000" />
-        <joint_properties damping="1.0" friction="1.0" />
-    </joint>  
-
-    <link name="link_spherical_wheel">
-        <inertial>
-            <mass value="1" />
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <inertia ixx="0.002526666666667" ixy="0" ixz="0" iyy="0.002526666666667" iyz="0" izz="0.005"/>
-        </inertial>
-
-            <!-- Wheel -->
-        <collision>
-            <origin rpy="0 0 0" xyz="0 0 -0.125" />
-            <geometry>
-                <sphere radius="0.125"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin rpy="0 0 0" xyz="0 0 -0.125" />
-            <geometry>
-                <sphere radius="0.125"/>
-            </geometry>
-            <material name="grey"/>
-        </visual>
-
-        <visual>
-            <origin rpy="0 0 0" xyz="0 0 -0.05" />
-            <geometry>
-                <sphere radius="0.15"/>
-            </geometry>
-                <material name="black"/>
-        </visual>
-
-    </link>
-
-
 
 
     <!-- Gazebo tags - Laser scan -->
@@ -231,48 +301,7 @@
     </link>
 
 
-        <!-- Robot tail -->
-    <joint name="joint_tail" type="continuous">
-        <origin rpy="0 0 0" xyz="-1 0 0" />
-        <child link="link_tail" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
-        <parent link="link_chassis" />
-        <joint_properties damping="1.0" friction="1.0" />
-    </joint>
-    <link name="link_tail">
-        <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="0.5" />
-            <inertia ixx="0.000252666666667" ixy="0" ixz="0" iyy="0.000252666666667" iyz="0" izz="0.0005"/>
-        </inertial>
-        <visual>
-            <origin xyz="-0.2 0 0" rpy="0 ${pi/2} 0" />
-            <geometry>
-                <cylinder radius="0.05" length="0.40"/>
-            </geometry>
-            <material name="Red">
-                <color rgba="0.7 0.1 0.1 1" />
-            </material>
-        </visual>
-        <collision>
-            <origin xyz="-0.2 0 0" rpy="0 ${pi/2} 0"/>
-            <geometry>
-                <cylinder radius="0.05" length="0.40"/>
-            </geometry>
-        </collision>
-    </link>
 
-    
-    <transmission name="tran_tail">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_tail">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="motor_joint_tail">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-    </transmission>
 
     <transmission name="tran_wheel1">
         <type>transmission_interface/SimpleTransmission</type>
@@ -291,6 +320,49 @@
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="actuator_wheel2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran_wheel_f1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_chassis_front_left_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="actuator_wheel_f1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="tran_wheel_f2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_chassis_front_right_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="actuator_wheel_f2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="tran_steer1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_left_steer">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="actuator_steer_f1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="tran_steer2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_right_steer">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="actuator_steer_f2">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
