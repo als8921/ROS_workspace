@@ -56,18 +56,18 @@
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
     <joint name="joint_chassis_front_left_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="0.5 0.65 0" />
+        <origin rpy="0 0 0" xyz="0.5 0.83 0" />
         <child link="link_front_left_wheel" />
         <parent link="link_chassis" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
+        <axis rpy="0 0 0" xyz="0 0 1" />
         <limit effort="10000" velocity="1000" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
     <joint name="joint_chassis_front_right_wheel" type="continuous">
-        <origin rpy="0 0 0" xyz="0.5 -0.65 0" />
+        <origin rpy="0 0 0" xyz="0.5 -0.83 0" />
         <child link="link_front_right_wheel" />
         <parent link="link_chassis" />
-        <axis rpy="0 0 0" xyz="0 1 0" />
+        <axis rpy="0 0 0" xyz="0 0 1" />
         <limit effort="10000" velocity="1000" />
         <joint_properties damping="1.0" friction="1.0" />
     </joint>
@@ -171,13 +171,13 @@
 
             <!-- Wheel -->
         <collision>
-            <origin rpy="${PI/2} 0 0" xyz="0 0.18 0" />
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="${PI/2} 0 0" xyz="0 0.18 0" />
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
@@ -185,27 +185,19 @@
         </visual>
 
         <visual>
-            <origin rpy="0 0 0" xyz="0 0.18 0" />
+            <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
                 <box size="0.1 0.1 0.7" />
             </geometry>
             <material name="grey"/>
         </visual>
-        
-
             <!-- Shaft -->
         <collision>
-            <origin rpy="${PI/2} 0 0" xyz="0 0.06 0" />
+            <origin rpy="${PI/2} 0 0" xyz="0 -0.12 0" />
             <geometry>
                 <cylinder length="0.12" radius="0.08"/>
             </geometry>
         </collision>
-        <visual>
-            <origin rpy="${PI/2} 0 0" xyz="0 0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </visual>
     </link>
     <link name="link_front_right_wheel">
         <inertial>
@@ -216,13 +208,13 @@
 
             <!-- Wheel -->
         <collision>
-            <origin rpy="${PI/2} 0 0" xyz="0 -0.18 0" />
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
         </collision>
         <visual>
-            <origin rpy="${PI/2} 0 0" xyz="0 -0.18 0" />
+            <origin rpy="${PI/2} 0 0" xyz="0 0 0" />
             <geometry>
                 <mesh filename="package://robot_description/meshes/wheel.stl" />
             </geometry>
@@ -230,27 +222,13 @@
         </visual>
 
         <visual>
-            <origin rpy="0 0 0" xyz="0 -0.18 0" />
+            <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
                 <box size="0.1 0.1 0.7" />
             </geometry>
             <material name="grey"/>
         </visual>
         
-
-            <!-- Shaft -->
-        <collision>
-            <origin rpy="${PI/2} 0 0" xyz="0 -0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin rpy="${PI/2} 0 0" xyz="0 -0.06 0" />
-            <geometry>
-                <cylinder length="0.12" radius="0.08"/>
-            </geometry>
-        </visual>
     </link>
 
 
@@ -290,7 +268,26 @@
             </geometry>
         </collision>
     </link>
+    <transmission name="tran_front_left_wheel">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_chassis_front_left_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_front_left_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
 
-
+    <transmission name="tran_front_right_wheel">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_chassis_front_right_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_front_right_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
 
 </robot>
