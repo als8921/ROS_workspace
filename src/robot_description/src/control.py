@@ -6,7 +6,18 @@ from std_msgs.msg import Float64
 
 def main():
     while not rospy.is_shutdown():
-        CmdPublish(0, 0, 1, 1, 1, 1)
+        #### |r| <= 4 
+        # r < 0 : turn left
+        # r > 0 : turn right
+        
+        r = -4
+        if(r < -4): r = -4
+        elif(r > 4): r = 4
+        
+        angle1 = math.degrees(math.atan(1.2/(r + 0.83)))
+        angle2 = math.degrees(math.atan(1.2/(r - 0.83)))
+        
+        CmdPublish(angle1, angle2, 10, 10, 10, 10)
 
 def CmdPublish(sl, sr, fl, fr, bl, br):
     front_left_steer.publish(Float64(-math.radians(sl)))
